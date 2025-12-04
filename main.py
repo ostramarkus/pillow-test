@@ -1,12 +1,16 @@
-import glob
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageEnhance
 
-def resize_image(source_path, dest_path):
-    with Image.open(source_path) as img:
-        img = ImageOps.fit(img, (200, 200))
-        img.save(dest_path)
+with Image.open('img/monalisa.webp') as mona:
+    mona = ImageOps.solarize(mona)    
+    mona = ImageEnhance.Brightness(mona).enhance(1.5)
+    mona.save('processed/monalisa.jpg')
 
-paths = glob.glob("food_img/*.jpg")
-for path in paths:
-    filename = path.split('/')[-1]
-    resize_image(path, 'food_proc/' + filename)
+
+
+
+
+    # mona = ImageOps.expand(mona, 10, (255, 255, 255))
+    # mona = ImageOps.posterize(mona, 2)
+    # mona = ImageOps.scale(mona, 0.6)    
+    # mona = ImageOps.flip(mona)
+    # mona = ImageOps.mirror(mona)
